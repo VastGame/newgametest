@@ -12,6 +12,7 @@
 #include <iostream>
 #include "cocos2d.h"
 #include "Sprite_Ball.h"
+#include "Splint.h"
 USING_NS_CC;
 class UpGameScene : public Layer{
 public:
@@ -20,8 +21,9 @@ public:
     
     static Scene* createUpGameScene();
     virtual bool init();
+    
     CREATE_FUNC(UpGameScene);
 private:
-
+    Sprite_Ball * ball;
 };
 #endif /* defined(__newgametest__UpGameScene__) */

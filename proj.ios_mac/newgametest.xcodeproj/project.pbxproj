@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		183BB8DF1A0731A200E39521 /* Splint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 183BB8DD1A0731A200E39521 /* Splint.cpp */; };
 		188A8A7C1A02184500867B05 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 188A8A7A1A02184500867B05 /* GameScene.cpp */; };
 		188B9B7F19FF1FA800B85B80 /* Land.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 188B9B7D19FF1FA800B85B80 /* Land.cpp */; };
 		188B9B8319FF4DB300B85B80 /* land.png in Resources */ = {isa = PBXBuildFile; fileRef = 188B9B8219FF4DB300B85B80 /* land.png */; };
@@ -225,6 +226,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		183BB8DD1A0731A200E39521 /* Splint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Splint.cpp; path = ../Classes/Splint.cpp; sourceTree = "<group>"; };
+		183BB8DE1A0731A200E39521 /* Splint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Splint.h; path = ../Classes/Splint.h; sourceTree = "<group>"; };
 		188A8A7A1A02184500867B05 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameScene.cpp; path = ../Classes/GameScene.cpp; sourceTree = "<group>"; };
 		188A8A7B1A02184500867B05 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameScene.h; path = ../Classes/GameScene.h; sourceTree = "<group>"; };
 		188B9B7D19FF1FA800B85B80 /* Land.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Land.cpp; path = ../Classes/Land.cpp; sourceTree = "<group>"; };
@@ -377,10 +380,12 @@
 				188B9B7E19FF1FA800B85B80 /* Land.h */,
 				188B9B871A00973400B85B80 /* Pipe.cpp */,
 				188B9B881A00973400B85B80 /* Pipe.h */,
-				18D114861A02731A008454C8 /* Sprite_Ball.cpp */,
-				18D114871A02731A008454C8 /* Sprite_Ball.h */,
 				188B9B8A1A00CCE200B85B80 /* SpriteBird.cpp */,
 				188B9B8B1A00CCE200B85B80 /* SpriteBird.h */,
+				18D114861A02731A008454C8 /* Sprite_Ball.cpp */,
+				18D114871A02731A008454C8 /* Sprite_Ball.h */,
+				183BB8DD1A0731A200E39521 /* Splint.cpp */,
+				183BB8DE1A0731A200E39521 /* Splint.h */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -722,6 +727,7 @@
 				18D114851A027127008454C8 /* UpGameScene.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				183BB8DF1A0731A200E39521 /* Splint.cpp in Sources */,
 				188B9B8619FF6BD100B85B80 /* WelcomeScene.cpp in Sources */,
 				18D114881A02731A008454C8 /* Sprite_Ball.cpp in Sources */,
 				1AFAF8B816D35DE700DB1158 /* HelloWorldScene.cpp in Sources */,

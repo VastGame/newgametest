@@ -59,9 +59,10 @@ bool UpGameScene::init(){
     addChild(gameBG);
     //添加小球
     auto ball = Sprite_Ball::create();
-    ball->setPosition(Vec2(visibleSize.width/2, visibleSize.height));
+    ball->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
     addChild(ball);
     
-    
+    auto splints= Splint::create();
+    addChild(splints);
     return true;
 }

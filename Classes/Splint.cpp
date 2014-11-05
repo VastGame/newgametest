@@ -24,53 +24,12 @@ bool Splint::init(){
 
     auto origin= Director::getInstance()->getVisibleOrigin();
     auto visibleSize= Director::getInstance()->getVisibleSize();
-//    //绘制一个 有色原型
-//    auto draw_ball = DrawNode::create();
-//    draw_ball->drawDot(Point(0,0),50,Color4F::WHITE);
-//    
-//    ball = Sprite::create();
-//    ball->addChild(draw_ball);
-//    
-//    //    ball->setPosition(Point(100,100));
-//    //设置圆刚体属性
-//    //    auto ball_physicsBody= PhysicsBody::create();
-//    auto ball_physicsBody =PhysicsBody::createCircle(40.0f);
-//    ball_physicsBody->setMass(10.0f);
-//    //    ball_physicsBody->addShape(PhysicsShapeBox::create(draw_ball->getContentSize()));
-//    ball_physicsBody->setDynamic(true);
-//    //线性阻尼
-//    ball_physicsBody->setLinearDamping(0);
-//    ball_physicsBody->setGravityEnable(true);
-//    ball_physicsBody->setCategoryBitmask(1);
-//    ball_physicsBody->setCollisionBitmask(-1);
-//    ball_physicsBody->setContactTestBitmask(1);
-//    ball->setPhysicsBody(ball_physicsBody);
-//    //绑定刚性物体
-//    //将圆加入层
-//    addChild(ball);
-//    
-//    //设置小球的点击监听事件
-//    //创建点击监听
-//    auto touchListener= EventListenerTouchOneByOne::create();
-//    touchListener->setSwallowTouches(false);
-//    
-//    touchListener->onTouchBegan = [=](Touch * t, Event * e){
-//        
-//        return true;
-//    };
-//    touchListener->onTouchEnded = [=](Touch * t, Event * e){
-//        //触控结束时，播放音效
-//        
-//        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/wing.mp3");
-//        //给小鸟一个初速度
-//        auto curVelocity=ball->getPhysicsBody()->getVelocity();
-//        ball->getPhysicsBody()->setVelocity(Vec2(Vec2(0, 1000>(curVelocity.y + 2000) ? (curVelocity.y + 2000):1000)));
-//        
-//    };
-//    getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
-    
+
+   
     //Mark:Test
     addSplint();
+//    addSplint();
+//    addSplint();
     return true;
 }
 
@@ -78,6 +37,15 @@ bool Splint::init(){
 
 void Splint::addSplint(){
     
+    auto splintNum = splints.size();
+    float splintY;
+    
+    if (splintNum==0) {
+        splintY= Director::getInstance()->getVisibleSize().height;
+    }else{
+        splintY=Director::getInstance()->getVisibleSize().height+splintNum*Director::getInstance()->getVisibleSize().height/2;
+    }
+  
     //创建 夹板 Node （两个 对撞的 刚体 矩形 ，有移动 ，有碰撞检测）
     
     Node * simpleSplint = Node::create();
@@ -113,15 +81,8 @@ void Splint::addSplint(){
     rightSplint_physicsBody->setContactTestBitmask(1);
     rightSplint->setPhysicsBody(rightSplint_physicsBody);
     
-    simpleSplint->addChild(leftSplint);
-    simpleSplint->addChild(rightSplint);
-    if (splints.empty()) {
-        simpleSplint->setPosition(0,200);
-        splints.pushBack(simpleSplint);
-        addChild(simpleSplint);
-    }else{
-        log("队列不为空！");
-    }
+    
+    
     //设置 夹板自动移动 //使用弹性效果 更为逼真
     //随机 移动速度
     auto movetime= 0.8+randomMoveTime();
@@ -136,7 +97,23 @@ void Splint::addSplint(){
    
     leftSplint->runAction(repeat_forever_left);
     rightSplint->runAction(repeat_forever_right);
-    randomMoveTime();
+    
+    
+    leftSplint->setTag(1);
+    rightSplint->setTag(2);
+    simpleSplint->addChild(leftSplint);
+    simpleSplint->addChild(rightSplint);
+    
+    
+    simpleSplint->setPosition(0,splintY);
+    splints.pushBack(simpleSplint);
+    addChild(simpleSplint);
+    
+    
+    //夹板个数过多 删除最前面的夹板
+//    if (splints.size()>=10) {
+//        splints.erase(10);
+//    }
     //放置 夹板
      //首先获取  夹板队列 最上层 夹板
      //相对坐标放置夹板，移动 只移动一个夹板
@@ -172,10 +149,27 @@ float Splint::randomMoveTime(){
 }
 
 //移动夹板（向下移动固定距离）
+void Splint::moveSplint(float f){
 
+    float setPoY=getPositionY()-f;
+    setPositionY(setPoY);
+    tempInt++;
+    if (tempInt==15) {
+        addSplint();
+    }
+}
 
 //停止夹板动作（ 向下移动和 夹合动作）
-
+void Splint::stopSplint(){
+//    this->stopAllActions();
+    for(auto sp : splints)
+    {
+        sp->getChildByTag(1)->stopAllActions();
+        sp->getChildByTag(1)->setPhysicsBody(NULL);
+        sp->getChildByTag(2)->stopAllActions();
+        sp->getChildByTag(2)->setPhysicsBody(NULL);
+    }
+}
 
 
 //Sprite_Ball * Sprite_Ball::createBall()

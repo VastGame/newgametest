@@ -22,9 +22,9 @@ public:
     static Sprite_Ball * createBall();
     bool init();
     void update(float);
-    
-private:
+    void gameOver_ball();
     Sprite * ball;
+private:
     
     EventListenerTouchOneByOne * touchListener;
     

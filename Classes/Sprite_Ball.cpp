@@ -62,10 +62,14 @@ bool Sprite_Ball::init(){
         CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/wing.mp3");
         //给小鸟一个初速度
         auto curVelocity=ball->getPhysicsBody()->getVelocity();
-        ball->getPhysicsBody()->setVelocity(Vec2(Vec2(0, 1000>(curVelocity.y + 2000) ? (curVelocity.y + 2000):1000)));
+        ball->getPhysicsBody()->setVelocity(Vec2(Vec2(0, 1000>(curVelocity.y + 2500) ? (curVelocity.y + 2500):1000)));
         
     };
     getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
+    
+    
+    //开启刷新计时器
+    scheduleUpdate();
     return true;
 }
 
@@ -77,7 +81,27 @@ Sprite_Ball * Sprite_Ball::createBall()
 }
 
 void Sprite_Ball:: update(float){
+//    log("XXXXX%f",ball->getPositionY());
     
+    auto origin=Director::getInstance()->getVisibleOrigin();
+    auto visibleSize=Director::getInstance()->getVisibleSize();
+    //防止飞出边界
+    if (ball->getPositionY()>(origin.y+visibleSize.height/2))
+    {
+        ball->setPositionY(origin.y+visibleSize.height/2);
+        ball->getPhysicsBody()->setVelocity(Vec2(0, 0));
+    }
+//    else if (ball->getPositionY()<=2){
+//         ball->setPositionY(2);
+//        ball->getPhysicsBody()->setVelocity(Vec2(0, 0));
+//    }
+
+}
+
+void Sprite_Ball::gameOver_ball(){
+    //去除小球物理刚体
+    ball->getPhysicsBody()->setVelocity(Vec2(0, 2000));
+    //播放小球破碎动画（例子效果）
 }
 
 

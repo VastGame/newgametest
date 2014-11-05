@@ -19,7 +19,7 @@ Scene * UpGameScene::createUpGameScene(){
     //创建一个物理世界
     auto gameScene = Scene::createWithPhysics();
     //重力加速度为向下  标准重力加速度 0，-980
-    gameScene->getPhysicsWorld()->setGravity(Vec2(0, -980));
+    gameScene->getPhysicsWorld()->setGravity(Vec2(0, -1250));
     //创建 画布层
     auto gameLayer = UpGameScene::create();
     /*  开启调试模式 调试模式可以将模拟的物理状态都绘制出来  */
@@ -58,11 +58,59 @@ bool UpGameScene::init(){
     gameBG->setScale(xScale, yScale);
     addChild(gameBG);
     //添加小球
-    auto ball = Sprite_Ball::create();
-    ball->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
+    ball = Sprite_Ball::create();
+    ball->setPosition(Vec2(visibleSize.width/2, 40));
     addChild(ball);
     
-    auto splints= Splint::create();
+    splints= Splint::create();
     addChild(splints);
-    return true;
+    upScreenTemp=-1;
+    //开启刷新计时器
+    scheduleUpdate();
+    
+    
+    //创建碰撞监听
+    contactListener = EventListenerPhysicsContact::create();
+    contactListener->onContactBegin = [=](const PhysicsContact & contact){
+        if(upScreenTemp!=-1){
+        this->unscheduleUpdate();
+        _eventDispatcher->removeEventListener(contactListener);
+        //所有夹板停止动作
+        splints->stopSplint();
+        //去除小球物理效果
+        ball->gameOver_ball();
+        //让夹板层移动到 底部
+        splints->runAction(MoveTo::create(1, Vec2(0, 0)));
+        //小球播放失败动画
+        //显示失败界面---重新开始/回主界面。
+        }
+        return true;
+    };
+     getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
+       return true;
+}
+
+void UpGameScene::update(float){
+    log("开启计时器%f",ball->ball->getPositionY());
+    auto origin=Director::getInstance()->getVisibleOrigin();
+    auto visibleSize=Director::getInstance()->getVisibleSize();
+    //防止飞出边界
+    if (ball->ball->getPositionY()>=(origin.y+visibleSize.height/2))
+    {
+
+      
+
+        upScreenTemp+=visibleSize.height/3;
+        if (upScreenTemp>=visibleSize.height) {
+            splints->addSplint();
+            upScreenTemp=0;
+        }
+       //移动夹板层
+        splints->runAction(MoveBy::create(0.3, Vec2(0, -visibleSize.height/8)));
+        log("夹板层坐标 %f",splints->getPositionY());
+    }else if (ball->ball->getPositionY()<=2){
+        
+    }
+
+    
 }

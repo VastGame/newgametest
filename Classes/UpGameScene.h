@@ -21,9 +21,15 @@ public:
     
     static Scene* createUpGameScene();
     virtual bool init();
-    
     CREATE_FUNC(UpGameScene);
+    
+    void update(float);
 private:
     Sprite_Ball * ball;
+    Splint * splints;
+    float upScreenTemp;
+    //碰撞检测
+    EventListenerPhysicsContact * contactListener;
+    
 };
 #endif /* defined(__newgametest__UpGameScene__) */

@@ -23,8 +23,8 @@ public:
     bool init();
 //    void update(float);
     void addSplint();
-//    void moveSplint();
-//    void stopSplint();
+    void moveSplint(float f);
+    void stopSplint();
 private:
 //    Sprite * ball;
     
@@ -32,6 +32,7 @@ private:
     //用来存储管子对象
     Vector<Node *> splints;
     float randomMoveTime();
+    int tempInt;
 };
 
 #endif /* defined(__newgametest__Splint__) */
